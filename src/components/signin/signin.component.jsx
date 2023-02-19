@@ -1,5 +1,10 @@
 import React from "react";
-//import "./signin.style.scss";
+import CustomButton from "../costum-button/costum-button.component";
+import CostumButton from "../costum-button/costum-button.component";
+import FormInput from "../form-input/form-input.component";
+import { signInWithGoogle } from "../../firebase/firebase-utils";
+
+import "./signin.style.scss";
 
 class SignIn extends React.Component{
     constructor(){
@@ -24,15 +29,30 @@ class SignIn extends React.Component{
     render(){
         const { email, password } = this.state;
         return(
-            <div className="signin">
+            <div className="sign-in">
                  <h2>I already have an account</h2>
                  <span>Sign in with your email and password</span>
                  <form onSubmit={this.handlSubmit}>
-                    <input onChange={this.handlChange} type="email" value={email} id="email" name="email" required />
-                    <label forhtml="email">Email</label>
-                    <input onChange={this.handlChange} type="password" value={password} id="pass" name="password" required />
-                    <label forhtml="password">Password</label>
-                    <input type="submit" value="send" />
+                    <FormInput 
+                          handleChange={this.handlChange}
+                          type="email" 
+                          value={email} 
+                          label="email" 
+                          name="email" required />
+                    <FormInput 
+                          handleChange={this.handlChange}
+                          type="password" 
+                          value={password} 
+                          label="password" 
+                          name="password" required />
+                    
+                    <div className="btns">
+                    <CostumButton type="submit">SIGN IN</CostumButton>
+                    
+                    <CustomButton onClick={ signInWithGoogle } type="button" isGoogleSignIn>
+                        sign in with google
+                    </CustomButton>
+                    </div>
                  </form>
             </div>
         )
