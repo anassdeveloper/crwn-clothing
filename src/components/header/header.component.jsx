@@ -3,6 +3,7 @@ import "./header.style.scss";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase-utils";
 //import { crown } from "../../asset/crown.svg";
+import { connect } from "react-redux";
             
 const Header = ({ currentUser }) => {
     return(
@@ -13,9 +14,6 @@ const Header = ({ currentUser }) => {
            <nav className="options">
               <Link to="/shop" className="option">
                   SHOP
-              </Link>
-              <Link to="/signin" className="option">
-                  SIGN IN
               </Link>
               <Link to="/contact" className="option">
                   CONTACT
@@ -30,5 +28,8 @@ const Header = ({ currentUser }) => {
         </div>
     )
 }
-
-export default Header;
+//connect hiya high order function 
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+})
+export default connect(mapStateToProps)(Header);
