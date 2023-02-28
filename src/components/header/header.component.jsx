@@ -2,14 +2,16 @@ import React from "react";
 import "./header.style.scss";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase-utils";
-//import { crown } from "../../asset/crown.svg";
+import { ReactComponent as Logo } from "../../asset/crown.svg";
 import { connect } from "react-redux";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
             
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
     return(
         <div className="header">
            <Link to="/" className="logo">
-              Logo
+              <Logo />
            </Link>
            <nav className="options">
               <Link to="/shop" className="option">
@@ -24,12 +26,18 @@ const Header = ({ currentUser }) => {
                 :
                 <Link to="/signin" className="option">SIGN IN</Link>
               }
+              <CartIcon />
             </nav>
+            {
+                hidden ? null : <CartDropdown />
+            }
+            
         </div>
     )
 }
 //connect hiya high order function 
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+const mapStateToProps = ({user: {currentUser}, cart: {hidden}}) => ({
+    currentUser,
+    hidden
 })
 export default connect(mapStateToProps)(Header);
