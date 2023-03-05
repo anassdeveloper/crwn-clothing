@@ -6,7 +6,11 @@ import { ReactComponent as Logo } from "../../asset/crown.svg";
 import { connect } from "react-redux";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
-            
+import { createStructuredSelector } from "reselect";
+import { selectCartHidden } from "../../redux/cart/reselector/cart.selector";
+import { selectCurrentUser } from '../../redux/user/user-selector';
+
+
 const Header = ({ currentUser, hidden }) => {
     return(
         <div className="header">
@@ -36,8 +40,15 @@ const Header = ({ currentUser, hidden }) => {
     )
 }
 //connect hiya high order function 
-const mapStateToProps = ({user: {currentUser}, cart: {hidden}}) => ({
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
+})
+
+/**
+ * const mapStateToProps = ({user: {currentUser}, cart: {hidden}}) => ({
     currentUser,
     hidden
 })
+ */
 export default connect(mapStateToProps)(Header);
